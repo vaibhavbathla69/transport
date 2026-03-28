@@ -2,10 +2,6 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  DotLottieReact,
-  type DotLottieInstance,
-} from "@lottiefiles/dotlottie-react";
-import {
   faArrowRight as faArrowRightIcon,
   faPhone as faPhoneIcon,
   faShieldHalved as faShieldHalvedIcon,
@@ -19,11 +15,9 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from "react";
 
-type NavKey = "services" | "sectors" | "approach" | "quote";
-
-type NavPositions = Record<NavKey, number>;
+type NavKey = "services" | "sectors" | "quote";
 
 type QuoteFormData = {
   companyName: string;
@@ -35,42 +29,21 @@ type QuoteFormData = {
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xreoejgv";
 
-const navKeys: NavKey[] = ["services", "sectors", "approach", "quote"];
-
 const navItems: Array<{ key: NavKey; label: string; href: string }> = [
   { key: "services", label: "Services", href: "#services" },
   { key: "sectors", label: "Sectors", href: "#sectors" },
-  { key: "approach", label: "Approach", href: "#approach" },
   { key: "quote", label: "Quote", href: "#quote" },
 ];
 
 const navThresholds: Array<{ key: NavKey; threshold: number }> = [
   { key: "services", threshold: 0.16 },
   { key: "sectors", threshold: 0.39 },
-  { key: "approach", threshold: 0.61 },
   { key: "quote", threshold: 0.8 },
 ];
 
 export default function LogisticsWebsiteMockup() {
   const pageRef = useRef<HTMLDivElement | null>(null);
-  const navRouteRef = useRef<HTMLDivElement | null>(null);
-  const truckAnimationRef = useRef<DotLottieInstance | null>(null);
-  const previousTruckLeftRef = useRef<number | null>(null);
-  const servicesRef = useRef<HTMLAnchorElement | null>(null);
-  const sectorsRef = useRef<HTMLAnchorElement | null>(null);
-  const approachRef = useRef<HTMLAnchorElement | null>(null);
-  const quoteRef = useRef<HTMLAnchorElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
-
-  const navRefs = useMemo(
-    () => ({
-      services: servicesRef,
-      sectors: sectorsRef,
-      approach: approachRef,
-      quote: quoteRef,
-    }),
-    []
-  );
 
   const services = [
     {
@@ -116,21 +89,6 @@ export default function LogisticsWebsiteMockup() {
     },
   ];
 
-  const principles = [
-    {
-      title: "Clear communication",
-      text: "Straightforward updates, clear expectations, and a direct commercial approach from first enquiry to delivery.",
-    },
-    {
-      title: "Dependable execution",
-      text: "A strong focus on responsiveness, reliability, and delivering transport requirements exactly as agreed.",
-    },
-    {
-      title: "Professional presence",
-      text: "A credible, well-presented business that gives partners and clients confidence from the first interaction.",
-    },
-  ];
-
   const { scrollYProgress } = useScroll({
     target: pageRef,
     offset: ["start start", "end end"],
@@ -143,23 +101,9 @@ export default function LogisticsWebsiteMockup() {
   const heroY = useTransform(smoothProgress, [0, 0.18], [0, -28]);
   const heroOpacity = useTransform(smoothProgress, [0, 0.18], [1, 0.84]);
   const heroDetailY = useTransform(smoothProgress, [0, 0.24], [0, -16]);
-  const heroRailScale = useTransform(smoothProgress, [0, 0.2], [1, 1.015]);
-  const truckLift = useTransform(
-    smoothProgress,
-    [0, 0.25, 0.5, 0.75, 1],
-    [0, -0.75, 0, -0.75, 0]
-  );
-
-  const [navPositions, setNavPositions] = useState<NavPositions>({
-    services: 0,
-    sectors: 108,
-    approach: 216,
-    quote: 324,
-  });
   const [showLoader, setShowLoader] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeNavKey, setActiveNavKey] = useState<NavKey | null>(null);
-  const [truckLeft, setTruckLeft] = useState(0);
   const [quoteForm, setQuoteForm] = useState<QuoteFormData>({
     companyName: "",
     contactName: "",
@@ -173,62 +117,6 @@ export default function LogisticsWebsiteMockup() {
   }>({ type: "idle", message: "" });
   const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
 
-  useEffect(() => {
-    const updatePositions = () => {
-      if (!navRouteRef.current) return;
-
-      const containerRect = navRouteRef.current.getBoundingClientRect();
-      const nextPositions = navKeys.reduce((acc, key) => {
-        const element = navRefs[key].current;
-        if (!element) return acc;
-
-        const rect = element.getBoundingClientRect();
-        acc[key] = rect.left - containerRect.left + rect.width / 2 - 18;
-        return acc;
-      }, {} as NavPositions);
-
-      if (navKeys.every((key) => Number.isFinite(nextPositions[key]))) {
-        setNavPositions(nextPositions);
-        setTruckLeft((current) => {
-          if (!activeNavKey) return nextPositions.services;
-          return nextPositions[activeNavKey];
-        });
-      }
-    };
-
-    updatePositions();
-
-    const resizeObserver =
-      typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(updatePositions)
-        : null;
-
-    if (navRouteRef.current && resizeObserver) {
-      resizeObserver.observe(navRouteRef.current);
-    }
-
-    navKeys.forEach((key) => {
-      const node = navRefs[key].current;
-      if (node && resizeObserver) resizeObserver.observe(node);
-    });
-
-    window.addEventListener("resize", updatePositions);
-
-    return () => {
-      resizeObserver?.disconnect();
-      window.removeEventListener("resize", updatePositions);
-    };
-  }, [activeNavKey, navRefs]);
-
-  useEffect(() => {
-    if (!activeNavKey) {
-      setTruckLeft(navPositions.services);
-      return;
-    }
-
-    setTruckLeft(navPositions[activeNavKey]);
-  }, [activeNavKey, navPositions]);
-
   useMotionValueEvent(smoothProgress, "change", (latest) => {
     let currentKey: NavKey | null = null;
 
@@ -238,40 +126,6 @@ export default function LogisticsWebsiteMockup() {
 
     setActiveNavKey((prev) => (prev === currentKey ? prev : currentKey));
   });
-
-  useEffect(() => {
-    const truckAnimation = truckAnimationRef.current;
-    if (!truckAnimation) return;
-    if (previousTruckLeftRef.current === null) {
-      previousTruckLeftRef.current = truckLeft;
-      truckAnimation.setLoop(false);
-      truckAnimation.pause();
-      return;
-    }
-    if (previousTruckLeftRef.current === truckLeft) return;
-
-    previousTruckLeftRef.current = truckLeft;
-    truckAnimation.setLoop(false);
-    truckAnimation.stop();
-    truckAnimation.play();
-  }, [truckLeft]);
-
-  useEffect(() => {
-    const truckAnimation = truckAnimationRef.current;
-    if (!truckAnimation) return;
-
-    const handleComplete = () => {
-      truckAnimation.pause();
-    };
-
-    truckAnimation.setLoop(false);
-    truckAnimation.pause();
-    truckAnimation.addEventListener("complete", handleComplete);
-
-    return () => {
-      truckAnimation.removeEventListener("complete", handleComplete);
-    };
-  }, []);
 
   useEffect(() => {
     const loaderTimer = window.setTimeout(() => {
@@ -424,24 +278,15 @@ export default function LogisticsWebsiteMockup() {
             <img
               src="/provida-logo.jpeg"
               alt="Provida Transport logo"
-              className="h-11 w-auto object-contain sm:h-12 md:h-14"
+              className="h-14 w-auto object-contain sm:h-15 md:h-18"
             />
           </a>
 
           <div className="hidden lg:block">
-            <nav className="relative flex items-center gap-1.5 pb-4 text-[0.69rem] font-semibold uppercase tracking-[0.14em] text-black/48">
+            <nav className="flex items-center gap-1.5 text-[0.69rem] font-semibold uppercase tracking-[0.14em] text-black/48">
               {navItems.map((item) => (
                 <a
                   key={item.key}
-                  ref={
-                    item.key === "services"
-                      ? servicesRef
-                      : item.key === "sectors"
-                        ? sectorsRef
-                        : item.key === "approach"
-                          ? approachRef
-                          : quoteRef
-                  }
                   href={item.href}
                   className={`rounded-full px-4 py-2 transition ${
                     activeNavKey === item.key
@@ -452,46 +297,27 @@ export default function LogisticsWebsiteMockup() {
                   {item.label}
                 </a>
               ))}
-
-              <div
-                ref={navRouteRef}
-                className="pointer-events-none absolute inset-x-0 bottom-[-6px] h-6"
-              >
-                <div className="absolute inset-x-1 top-4 h-[1.5px] bg-black/14" />
-                <motion.div
-                  className="absolute top-0 z-10"
-                  animate={{ left: truckLeft }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 220,
-                    damping: 30,
-                    mass: 0.58,
-                  }}
-                  style={motionEnabled ? { y: truckLift } : undefined}
-                >
-                  <div className="flex h-9 w-9 items-center justify-center overflow-hidden">
-                    <DotLottieReact
-                      src="/Shipping.lottie"
-                      speed={0.9}
-                      layout={{ fit: "cover", align: [0.52, 0.56] }}
-                      renderConfig={{ autoResize: true }}
-                      dotLottieRefCallback={(instance) => {
-                        truckAnimationRef.current = instance;
-                      }}
-                      className="h-9 w-9 scale-[2.85]"
-                    />
-                  </div>
-                </motion.div>
-              </div>
             </nav>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="#quote"
-              className="hidden rounded-full border border-black/14 px-6 py-3 text-[0.79rem] font-medium tracking-[-0.02em] text-black transition hover:bg-black hover:text-white lg:inline-flex"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-black px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.12em] text-white transition hover:opacity-95 sm:px-6 sm:text-[0.76rem] lg:hidden"
             >
-              Request quote
+              <span className="pointer-events-none absolute inset-y-[2px] left-[-18%] w-[34%] skew-x-[-20deg] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.08)_45%,rgba(255,255,255,0.32)_50%,rgba(255,255,255,0.08)_55%,transparent_100%)] transition-transform duration-700 ease-out group-hover:translate-x-[320%]" />
+              <span className="relative z-10 font-bold tracking-[0.16em] text-white">
+                REQUEST QUOTE
+              </span>
+            </a>
+            <a
+              href="#quote"
+              className="group relative hidden items-center justify-center overflow-hidden rounded-full bg-black px-7 py-3.5 text-[0.86rem] font-semibold tracking-[-0.02em] text-white transition hover:opacity-95 lg:inline-flex"
+            >
+              <span className="pointer-events-none absolute inset-y-[2px] left-[-18%] w-[34%] skew-x-[-20deg] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.08)_45%,rgba(255,255,255,0.32)_50%,rgba(255,255,255,0.08)_55%,transparent_100%)] transition-transform duration-700 ease-out group-hover:translate-x-[320%]" />
+              <span className="relative z-10 font-bold uppercase tracking-[0.12em] text-white">
+                REQUEST QUOTE
+              </span>
             </a>
             <button
               type="button"
@@ -560,49 +386,49 @@ export default function LogisticsWebsiteMockup() {
       </AnimatePresence>
 
       <section id="hero" className="relative overflow-hidden bg-white">
-        <div className="mx-auto max-w-[1520px] px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10 md:px-10 md:pb-24 md:pt-16 xl:px-16 xl:pb-28 xl:pt-20">
+        <div className="mx-auto max-w-[1520px] px-4 pb-7 pt-2 sm:px-6 sm:pb-9 sm:pt-4 md:px-10 md:pb-12 md:pt-6 xl:px-16 xl:pb-16 xl:pt-8">
           <motion.div
-            className="grid gap-9 sm:gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] lg:items-start lg:gap-10 xl:grid-cols-[1.18fr_0.82fr] xl:items-end xl:gap-14"
+            className="grid gap-5 sm:gap-6 lg:grid-cols-[minmax(0,0.96fr)_minmax(460px,1.04fr)] lg:items-start lg:gap-6 xl:grid-cols-[0.94fr_1.06fr] xl:gap-8"
             style={motionEnabled ? { y: heroY, opacity: heroOpacity } : undefined}
           >
-            <div className="max-w-[900px]">
-              <div className="mb-4 text-[0.56rem] font-semibold uppercase tracking-[0.28em] text-black/42 sm:mb-6 sm:text-[0.62rem] sm:tracking-[0.3em] md:mb-8">
+            <div className="max-w-[760px] lg:pt-2 xl:pt-3">
+              <div className="mb-3 text-[0.56rem] font-semibold uppercase tracking-[0.28em] text-black/42 sm:mb-4 sm:text-[0.62rem] sm:tracking-[0.3em] md:mb-4">
                 Provida Transport
               </div>
-              <h1 className="font-display max-w-[860px] text-[3rem] leading-[0.92] tracking-[-0.065em] text-black sm:text-[3.8rem] md:text-[5.8rem] xl:text-[7.6rem]">
+              <h1 className="font-display max-w-[760px] text-[2.95rem] leading-[0.94] tracking-[-0.06em] text-black sm:text-[3.7rem] md:text-[5rem] xl:text-[6.5rem]">
                 <span className="block">Transport,</span>
                 <span className="block pl-[0.08em] text-black/64 sm:pl-[0.1em]">
                   done right
                 </span>
               </h1>
+              <p className="mt-4 max-w-[520px] text-[0.96rem] leading-7 text-black/62 sm:mt-5 sm:text-[1rem] md:mt-6 md:text-[1.06rem] md:leading-8">
+                Dependable UK haulage support for scheduled work, urgent
+                movements, and commercial transport requirements.
+              </p>
             </div>
 
             <motion.div
-              className="max-w-none sm:max-w-[420px] lg:justify-self-end"
+              className="max-w-none sm:max-w-[460px] lg:mt-8 lg:max-w-[560px] lg:justify-self-end xl:mt-9 xl:max-w-[620px]"
               style={motionEnabled ? { y: heroDetailY } : undefined}
             >
               <div className="rounded-[1.6rem] border border-black/8 bg-black/[0.02] p-5 sm:rounded-[2rem] sm:p-7 md:p-8">
-                <div className="flex items-start gap-3 border-b border-black/8 pb-5 sm:items-center sm:gap-4 sm:pb-6">
-                  <div className="flex h-13 w-13 shrink-0 items-center justify-center rounded-full bg-black text-[1rem] font-semibold text-white sm:h-15 sm:w-15 sm:text-[1.15rem]">
-                    24
+                <div className="border-b border-black/8 pb-5 sm:pb-6">
+                  <div className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-black/42 sm:text-[0.68rem] sm:tracking-[0.24em]">
+                    About Provida
                   </div>
-                  <div>
-                    <div className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-black/42 sm:text-[0.68rem] sm:tracking-[0.24em]">
-                      Operational support
-                    </div>
-                    <div className="mt-2 text-[1.02rem] leading-[1.12] tracking-[-0.03em] text-black sm:text-[1.14rem] md:text-[1.22rem]">
-                      Same-day and scheduled transport for time-sensitive work.
-                    </div>
-                  </div>
+                  <p className="mt-3 text-[1.02rem] leading-7 tracking-[-0.02em] text-black sm:text-[1.1rem] sm:leading-8 md:text-[1.2rem]">
+                    At Provida Transport, we deliver dependable, competitively
+                    priced haulage services across the UK.
+                  </p>
                 </div>
 
                 <p className="pt-5 text-[0.96rem] leading-7 text-black/68 sm:pt-6 sm:text-[1.02rem] sm:leading-8 md:text-[1.06rem]">
-                  Provida Transport delivers dependable logistics support,
-                  dedicated transport, and same-day delivery solutions for
-                  businesses across the UK.
+                  With over a decade of industry experience behind us, we pride
+                  ourselves on reliability, efficiency, and a service you can
+                  trust every load.
                 </p>
 
-                <div className="mt-7 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+                <div className="mt-6 flex flex-col items-stretch gap-3 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                   <a
                     href="#quote"
                     className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-black px-7 py-4 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:opacity-95 sm:px-9 sm:text-[0.86rem]"
@@ -624,43 +450,6 @@ export default function LogisticsWebsiteMockup() {
               </div>
             </motion.div>
           </motion.div>
-
-          <motion.div
-            className="mt-8 rounded-[1.6rem] border border-black/8 bg-[linear-gradient(180deg,rgba(0,0,0,0.025)_0%,rgba(0,0,0,0.01)_100%)] px-5 py-5 sm:mt-10 sm:rounded-[2rem] sm:px-6 md:mt-14 md:px-8"
-            style={
-              motionEnabled ? { y: heroDetailY, scale: heroRailScale } : undefined
-            }
-          >
-            <div className="grid gap-5 md:grid-cols-3 md:gap-8">
-              <div>
-                <div className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-black/40 sm:text-[0.64rem] sm:tracking-[0.24em]">
-                  Dedicated transport
-                </div>
-                <div className="mt-2 text-[0.92rem] leading-7 text-black/64 sm:text-[0.96rem]">
-                  Contract routes and recurring delivery support with a clear,
-                  commercial service model.
-                </div>
-              </div>
-              <div>
-                <div className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-black/40 sm:text-[0.64rem] sm:tracking-[0.24em]">
-                  Same-day response
-                </div>
-                <div className="mt-2 text-[0.92rem] leading-7 text-black/64 sm:text-[0.96rem]">
-                  Fast turnaround for urgent movements, priority consignments,
-                  and time-critical requirements.
-                </div>
-              </div>
-              <div>
-                <div className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-black/40 sm:text-[0.64rem] sm:tracking-[0.24em]">
-                  Transport consulting
-                </div>
-                <div className="mt-2 text-[0.92rem] leading-7 text-black/64 sm:text-[0.96rem]">
-                  Compliance, transport management, and route planning support
-                  for reliable, scalable logistics operations.
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -668,15 +457,15 @@ export default function LogisticsWebsiteMockup() {
         id="services"
         className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
       >
-        <div className="grid justify-items-center gap-10 sm:gap-12 xl:grid-cols-[0.68fr_1.32fr] xl:justify-items-stretch xl:gap-18">
-          <div className="text-center xl:text-left">
-            <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
+        <div className="grid gap-10 sm:gap-12 xl:grid-cols-[0.68fr_1.32fr] xl:gap-18">
+          <div className="text-left">
+            <div className="text-[0.68rem] uppercase tracking-[0.24em] text-black/38 sm:text-[0.58rem] sm:tracking-[0.28em]">
               Services
             </div>
             <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
               Core transport services presented with clarity.
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
+            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
               Whether a client needs urgent delivery support or a dependable
               logistics partner for ongoing work, the service offering should be
               quick to understand and easy to trust.
@@ -735,18 +524,14 @@ export default function LogisticsWebsiteMockup() {
       </section>
 
       <section id="sectors" className="bg-white text-black">
-        <div className="mx-auto grid max-w-[1440px] justify-items-center gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:justify-items-stretch xl:gap-18 xl:px-16 xl:py-28">
-          <div className="text-center xl:text-left">
-            <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
+        <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:gap-18 xl:px-16 xl:py-28">
+          <div className="text-left">
+            <div className="text-[0.68rem] uppercase tracking-[0.24em] text-black/38 sm:text-[0.58rem] sm:tracking-[0.28em]">
               Services
             </div>
             <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
               Core transport services.
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
-              A clear overview of the transport categories Provida supports for
-              commercial clients across scheduled, urgent, and specialist work.
-            </p>
           </div>
 
           <div className="grid gap-3">
@@ -774,53 +559,16 @@ export default function LogisticsWebsiteMockup() {
         </div>
       </section>
 
-      <section
-        id="approach"
-        className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
-      >
-        <div className="grid justify-items-center gap-10 xl:grid-cols-[0.74fr_1.26fr] xl:justify-items-stretch xl:gap-18">
-          <div className="text-center xl:text-left">
-            <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
-              Approach
-            </div>
-            <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
-              Why businesses choose Provida Transport.
-            </h2>
-            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
-              Provida Transport is built around clear communication, responsive
-              service, and the dependable support commercial clients need from a
-              trusted transport partner.
-            </p>
-          </div>
-
-          <div className="grid gap-3">
-            {principles.map((item) => (
-              <div
-                key={item.title}
-                className="grid gap-3 rounded-[1.35rem] border border-black/8 px-5 py-5 sm:rounded-[1.6rem] sm:px-6 sm:py-6 md:grid-cols-[220px_1fr] md:gap-6 md:px-8 md:py-7"
-              >
-                <div className="text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-black/36 sm:text-[0.62rem] sm:tracking-[0.24em]">
-                  {item.title}
-                </div>
-                <p className="max-w-[620px] text-[0.93rem] leading-7 text-black/62 sm:text-[0.97rem]">
-                  {item.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="quote" className="border-y border-black/8 bg-[#fbfbfb]">
-        <div className="mx-auto grid max-w-[1440px] justify-items-center gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:justify-items-stretch xl:gap-18 xl:px-16 xl:py-28">
-          <div className="text-center xl:text-left">
-            <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
+        <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:gap-18 xl:px-16 xl:py-28">
+          <div className="text-left">
+            <div className="text-[0.68rem] uppercase tracking-[0.24em] text-black/38 sm:text-[0.58rem] sm:tracking-[0.28em]">
               Request a Quote
             </div>
             <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
               Request a quote.
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
+            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
               Tell us about your delivery requirements, recurring transport
               needs, or operational priorities, and we will respond with a
               tailored quote.
@@ -912,15 +660,15 @@ export default function LogisticsWebsiteMockup() {
         id="contact"
         className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
       >
-        <div className="grid justify-items-center gap-8 border-t border-black/10 pt-8 sm:pt-10 md:gap-10 xl:grid-cols-[0.78fr_1.22fr] xl:justify-items-stretch">
-          <div className="text-center xl:text-left">
-            <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
+        <div className="grid gap-8 border-t border-black/10 pt-8 sm:pt-10 md:gap-10 xl:grid-cols-[0.78fr_1.22fr]">
+          <div className="text-left">
+            <div className="text-[0.68rem] uppercase tracking-[0.24em] text-black/38 sm:text-[0.58rem] sm:tracking-[0.28em]">
               Contact
             </div>
             <h2 className="font-display mt-4 max-w-[450px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.5rem]">
               Get in touch with Provida Transport.
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
+            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
               Whether you need a one-off urgent movement or a longer-term
               logistics partner, Provida Transport can be contacted quickly to
               discuss requirements and provide a tailored quote.
@@ -943,14 +691,6 @@ export default function LogisticsWebsiteMockup() {
               </div>
               <div className="break-all text-[0.95rem] font-semibold tracking-[-0.01em] text-black sm:break-normal sm:text-[0.98rem]">
                 enquiries@providatransport.com
-              </div>
-            </div>
-            <div className="grid gap-2 rounded-[1.35rem] border border-black/8 bg-white px-5 py-5 sm:gap-5 sm:rounded-[1.6rem] sm:px-6 sm:py-6 md:grid-cols-[160px_1fr] md:px-8">
-              <div className="text-[0.56rem] uppercase tracking-[0.22em] text-black/35 sm:text-[0.58rem] sm:tracking-[0.24em]">
-                Hours
-              </div>
-              <div className="text-[0.95rem] font-semibold tracking-[-0.01em] text-black sm:text-[0.98rem]">
-                Monday to Friday, 08:00 to 18:00
               </div>
             </div>
             <div className="grid gap-2 rounded-[1.35rem] border border-black/8 bg-white px-5 py-5 sm:gap-5 sm:rounded-[1.6rem] sm:px-6 sm:py-6 md:grid-cols-[160px_1fr] md:px-8">

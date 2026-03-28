@@ -15,7 +15,7 @@ import {
 } from "framer-motion";
 import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from "react";
 
-type NavKey = "services" | "sectors" | "quote";
+type NavKey = "services" | "sectors" | "contact";
 
 type QuoteFormData = {
   companyName: string;
@@ -26,15 +26,15 @@ type QuoteFormData = {
 };
 
 const navItems: Array<{ key: NavKey; label: string; href: string }> = [
-  { key: "services", label: "Services", href: "#services" },
+  { key: "services", label: "Services", href: "#hero" },
   { key: "sectors", label: "Sectors", href: "#sectors" },
-  { key: "quote", label: "Quote", href: "#quote" },
+  { key: "contact", label: "Contact", href: "#contact" },
 ];
 
 const navThresholds: Array<{ key: NavKey; threshold: number }> = [
   { key: "services", threshold: 0.16 },
   { key: "sectors", threshold: 0.39 },
-  { key: "quote", threshold: 0.8 },
+  { key: "contact", threshold: 0.84 },
 ];
 
 export default function LogisticsWebsiteMockup() {
@@ -227,7 +227,7 @@ export default function LogisticsWebsiteMockup() {
             <img
               src="/provida-logo.jpeg"
               alt="Provida Transport logo"
-              className="h-18 w-auto object-contain sm:h-19 md:h-22"
+              className="h-20 w-auto object-contain sm:h-22 md:h-24"
             />
           </a>
 
@@ -315,13 +315,6 @@ export default function LogisticsWebsiteMockup() {
               </nav>
               <div className="mt-6 grid gap-3">
                 <a
-                  href="#quote"
-                  onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center justify-center rounded-full bg-black px-6 py-4 text-[0.78rem] font-semibold uppercase tracking-[0.14em] !text-white"
-                >
-                  Request Quote
-                </a>
-                <a
                   href="#contact"
                   onClick={() => setMenuOpen(false)}
                   className="inline-flex items-center justify-center rounded-full border border-black/10 px-6 py-4 text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-black"
@@ -341,10 +334,7 @@ export default function LogisticsWebsiteMockup() {
             style={motionEnabled ? { y: heroY, opacity: heroOpacity } : undefined}
           >
             <div className="max-w-none lg:pt-2 xl:pt-3">
-              <div className="mb-3 text-[0.56rem] font-semibold uppercase tracking-[0.28em] text-black/42 sm:mb-4 sm:text-[0.62rem] sm:tracking-[0.3em] md:mb-4">
-                Provida Transport
-              </div>
-              <h1 className="font-display max-w-none text-[2.95rem] leading-[0.94] tracking-[-0.06em] text-black sm:text-[3.7rem] md:text-[4.7rem] lg:text-[5.4rem] xl:text-[6.2rem]">
+              <h1 className="font-display max-w-none text-[2.55rem] leading-[0.96] tracking-[-0.055em] text-black sm:text-[3.2rem] md:text-[4.1rem] lg:text-[4.7rem] xl:text-[5.4rem]">
                 <span className="inline">Transport, </span>
                 <span className="inline text-black/64">
                   done right
@@ -358,10 +348,7 @@ export default function LogisticsWebsiteMockup() {
             >
               <div className="rounded-[1.6rem] border border-black/8 bg-black/[0.02] p-5 sm:rounded-[2rem] sm:p-7 md:p-8">
                 <div className="border-b border-black/8 pb-5 sm:pb-6">
-                  <div className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-black/42 sm:text-[0.68rem] sm:tracking-[0.24em]">
-                    About Provida
-                  </div>
-                  <p className="mt-3 text-[1.02rem] leading-7 tracking-[-0.02em] text-black sm:text-[1.1rem] sm:leading-8 md:text-[1.2rem]">
+                  <p className="text-[1.02rem] leading-7 tracking-[-0.02em] text-black sm:text-[1.1rem] sm:leading-8 md:text-[1.2rem]">
                     At Provida Transport, we deliver dependable, competitively
                     priced haulage services across the UK.
                   </p>
@@ -373,24 +360,20 @@ export default function LogisticsWebsiteMockup() {
                   trust every load.
                 </p>
 
-                <div className="mt-6 flex flex-col items-stretch gap-3 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-                  <a
-                    href="#quote"
-                    className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-black px-7 py-4 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:opacity-95 sm:px-9 sm:text-[0.86rem]"
-                  >
-                    <span className="pointer-events-none absolute inset-y-[2px] left-[-18%] w-[34%] skew-x-[-20deg] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.08)_45%,rgba(255,255,255,0.32)_50%,rgba(255,255,255,0.08)_55%,transparent_100%)] transition-transform duration-700 ease-out group-hover:translate-x-[320%]" />
-                    <span className="relative z-10 text-white">Request Quote</span>
-                  </a>
-                  <a
-                    href="#services"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 px-6 py-4 text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-black/62 transition hover:text-black sm:justify-start sm:rounded-none sm:border-0 sm:px-0 sm:py-0 sm:text-[0.85rem]"
-                  >
-                    View services
-                    <FontAwesomeIcon
-                      icon={faArrowRightIcon}
-                      className="text-[0.72rem]"
-                    />
-                  </a>
+                <div className="mt-6 grid gap-4 border-t border-black/8 pt-5 sm:mt-7 sm:grid-cols-3 sm:gap-5 sm:pt-6">
+                  {services.map((service) => (
+                    <div key={service.number} className="grid gap-2">
+                      <div className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-black/38">
+                        {service.number}
+                      </div>
+                      <div className="text-[0.98rem] font-semibold tracking-[-0.02em] text-black sm:text-[1.02rem]">
+                        {service.title}
+                      </div>
+                      <p className="text-[0.88rem] leading-6 text-black/58 sm:text-[0.92rem]">
+                        {service.description}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </motion.div>
@@ -398,48 +381,9 @@ export default function LogisticsWebsiteMockup() {
         </div>
       </section>
 
-      <section
-        id="services"
-        className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
-      >
-        <div className="grid gap-10 sm:gap-12 xl:grid-cols-[0.68fr_1.32fr] xl:gap-18">
-          <div className="text-left">
-            <div className="text-[0.68rem] uppercase tracking-[0.24em] text-black/38 sm:text-[0.58rem] sm:tracking-[0.28em]">
-              Services
-            </div>
-            <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
-              Transport doesn&apos;t need to be complicated.
-            </h2>
-            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
-              We deliver clear, reliable solutions designed to keep your
-              operations moving without disruption.
-            </p>
-          </div>
-
-          <div className="border-t border-black/10">
-            {services.map((service) => (
-              <div
-                key={service.title}
-                className="grid gap-3 border-b border-black/8 py-6 sm:gap-4 sm:py-8 md:grid-cols-[84px_1fr_1.04fr] md:gap-8 md:py-10"
-              >
-                <div className="pt-1 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-black/34 sm:text-[0.64rem] sm:tracking-[0.22em]">
-                  {service.number}
-                </div>
-                <h3 className="font-display max-w-[320px] text-[1.12rem] leading-[1.12] tracking-[-0.035em] text-black sm:text-[1.22rem] md:text-[1.5rem]">
-                  {service.title}
-                </h3>
-                <p className="max-w-[520px] text-[0.93rem] leading-7 text-black/62 sm:text-[0.97rem]">
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#0d0d0d] text-white">
+      <section id="sectors" className="bg-[#0d0d0d] text-white">
         <div className="mx-auto max-w-[1440px] px-4 py-14 sm:px-6 sm:py-16 md:px-10 md:py-20 xl:px-16 xl:py-24">
-          <div className="grid gap-8 rounded-[1.8rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045)_0%,rgba(255,255,255,0.015)_100%)] px-5 py-7 sm:rounded-[2.2rem] sm:px-7 sm:py-9 md:px-10 md:py-12 xl:grid-cols-[0.92fr_1.08fr] xl:gap-18 xl:px-14">
+          <div className="grid gap-8 rounded-[1.8rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045)_0%,rgba(255,255,255,0.015)_100%)] px-5 py-7 sm:rounded-[2.2rem] sm:px-7 sm:py-9 md:px-10 md:py-12 xl:gap-10 xl:px-14">
             <div>
               <h2 className="font-display max-w-[520px] text-[1.72rem] leading-[1.04] tracking-[-0.05em] text-white sm:text-[2rem] md:text-[2.7rem]">
                 Our fleet keeps you moving.
@@ -453,53 +397,40 @@ export default function LogisticsWebsiteMockup() {
                 transport demands with precision and reliability.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <section id="sectors" className="bg-white text-black">
-        <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:gap-18 xl:px-16 xl:py-28">
-          <div className="text-left">
-            <div className="text-[0.68rem] uppercase tracking-[0.24em] text-black/38 sm:text-[0.58rem] sm:tracking-[0.28em]">
-              Services
-            </div>
-            <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
-              Our core transport services.
-            </h2>
-          </div>
-
-          <div className="grid gap-3">
+            <div className="grid gap-3 pt-2 sm:pt-3">
             {sectors.map((sector, index) => (
               <div
                 key={sector.title}
-                className="rounded-[1.2rem] border border-black/8 bg-[linear-gradient(180deg,rgba(0,0,0,0.02)_0%,rgba(0,0,0,0.008)_100%)] px-4 py-4 sm:rounded-[1.45rem] sm:px-6 sm:py-5 md:px-7 md:py-6"
+                className="rounded-[1.2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.018)_100%)] px-4 py-4 sm:rounded-[1.45rem] sm:px-6 sm:py-5 md:px-7 md:py-6"
               >
                 <div className="grid gap-2 md:grid-cols-[72px_1fr] md:gap-5">
-                  <div className="text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-black/32 sm:text-[0.6rem]">
+                  <div className="text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-white/38 sm:text-[0.6rem]">
                     {String(index + 1).padStart(2, "0")}
                   </div>
                   <div>
-                    <div className="text-[0.98rem] font-semibold tracking-[-0.015em] text-black sm:text-[1.05rem]">
+                    <div className="text-[0.98rem] font-semibold tracking-[-0.015em] text-white sm:text-[1.05rem]">
                       {sector.title}
                     </div>
-                    <p className="mt-2 max-w-[560px] text-[0.88rem] leading-6 text-black/56 sm:text-[0.92rem]">
+                    <p className="mt-2 max-w-[560px] text-[0.88rem] leading-6 text-white/62 sm:text-[0.92rem]">
                       {sector.description}
                     </p>
                   </div>
                 </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="quote" className="border-y border-black/8 bg-[#fbfbfb]">
+      <section
+        id="quote"
+        className="scroll-mt-28 border-y border-black/8 bg-[#fbfbfb] sm:scroll-mt-32"
+      >
         <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:gap-18 xl:px-16 xl:py-28">
           <div className="text-left">
-            <div className="text-[0.68rem] uppercase tracking-[0.24em] text-black/38 sm:text-[0.58rem] sm:tracking-[0.28em]">
-              Request a Quote
-            </div>
-            <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
+            <h2 className="font-display max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
               Request a quote.
             </h2>
             <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
@@ -593,22 +524,19 @@ export default function LogisticsWebsiteMockup() {
         id="contact"
         className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
       >
-        <div className="grid gap-8 border-t border-black/10 pt-8 sm:pt-10 md:gap-10 xl:grid-cols-[0.78fr_1.22fr]">
+        <div className="grid gap-8 border-t border-black/10 pt-8 sm:pt-10 md:gap-10 xl:grid-cols-[0.82fr_1.18fr] xl:items-start">
           <div className="text-left">
-            <div className="text-[0.68rem] uppercase tracking-[0.24em] text-black/38 sm:text-[0.58rem] sm:tracking-[0.28em]">
-              Contact
-            </div>
-            <h2 className="font-display mt-4 max-w-[450px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.5rem]">
+            <h2 className="font-display max-w-[450px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.5rem]">
               Get in touch with Provida Transport.
             </h2>
           </div>
 
-          <div className="grid gap-3">
-            <div className="grid gap-2 rounded-[1.35rem] border border-black/8 bg-white px-5 py-5 sm:gap-5 sm:rounded-[1.6rem] sm:px-6 sm:py-6 md:grid-cols-[160px_1fr] md:px-8">
+          <div className="grid gap-3 xl:max-w-[620px] xl:justify-self-start">
+            <div className="grid gap-2 rounded-[1rem] border border-black/8 bg-white px-4 py-3.5 sm:gap-2.5 sm:rounded-[1.2rem] sm:px-5 sm:py-4 md:px-6">
               <div className="text-[0.56rem] uppercase tracking-[0.22em] text-black/35 sm:text-[0.58rem] sm:tracking-[0.24em]">
                 Email
               </div>
-              <div className="break-all text-[0.95rem] font-semibold tracking-[-0.01em] text-black sm:break-normal sm:text-[0.98rem]">
+              <div className="text-[0.95rem] font-semibold tracking-[-0.01em] text-black sm:text-[0.98rem]">
                 enquiries@providatransport.com
               </div>
             </div>

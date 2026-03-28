@@ -223,7 +223,7 @@ export default function LogisticsWebsiteMockup() {
 
       <header className="sticky top-0 z-[100] border-b border-black/6 bg-white/92 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1520px] items-center justify-between px-6 py-3 sm:px-8 md:px-10 md:py-5 xl:px-16">
-          <a href="#hero" className="flex items-center">
+          <a href="#" className="flex items-center">
             <img
               src="/provida-logo.jpeg"
               alt="Provida Transport logo"
@@ -327,13 +327,16 @@ export default function LogisticsWebsiteMockup() {
         ) : null}
       </AnimatePresence>
 
-      <section id="hero" className="relative overflow-hidden bg-white">
-        <div className="mx-auto max-w-[1520px] px-4 pb-7 pt-2 sm:px-6 sm:pb-9 sm:pt-4 md:px-10 md:pb-12 md:pt-6 xl:px-16 xl:pb-16 xl:pt-8">
+      <section
+        id="hero"
+        className="relative scroll-mt-28 overflow-hidden bg-white sm:scroll-mt-32"
+      >
+        <div className="mx-auto max-w-[1520px] px-4 pb-7 pt-7 sm:px-6 sm:pb-9 sm:pt-4 md:px-10 md:pb-12 md:pt-6 xl:px-16 xl:pb-16 xl:pt-8">
           <motion.div
             className="grid gap-4 sm:gap-5"
             style={motionEnabled ? { y: heroY, opacity: heroOpacity } : undefined}
           >
-            <div className="max-w-none lg:pt-2 xl:pt-3">
+            <div className="max-w-none pb-2 lg:pt-2 lg:pb-0 xl:pt-3">
               <h1 className="font-display max-w-none text-[2.35rem] leading-[0.97] tracking-[-0.05em] text-black sm:text-[3rem] md:text-[3.8rem] lg:text-[4.35rem] xl:text-[4.9rem]">
                 <span className="inline">Transport, </span>
                 <span className="inline text-black/64">
@@ -347,29 +350,24 @@ export default function LogisticsWebsiteMockup() {
               style={motionEnabled ? { y: heroDetailY } : undefined}
             >
               <div className="rounded-[1.6rem] border border-black/8 bg-black/[0.02] p-5 sm:rounded-[2rem] sm:p-7 md:p-8">
-                <div className="border-b border-black/8 pb-5 sm:pb-6">
-                  <p className="text-[1.03rem] leading-7 tracking-[-0.02em] text-black sm:text-[1.1rem] sm:leading-8 md:text-[1.16rem]">
-                    At Provida Transport, we deliver dependable, competitively
-                    priced haulage services across the UK.
-                  </p>
-                </div>
-
-                <p className="pt-5 text-[1.03rem] leading-7 text-black/68 sm:pt-6 sm:text-[1.1rem] sm:leading-8 md:text-[1.16rem]">
-                  With over a decade of industry experience behind us, we pride
-                  ourselves on reliability, efficiency, and a service you can
-                  trust every load.
+                <p className="text-[1.03rem] leading-7 tracking-[-0.02em] text-black sm:text-[1.1rem] sm:leading-8 md:text-[1.16rem]">
+                  At Provida Transport, we deliver dependable, competitively
+                  priced haulage services across the UK. With over a decade of
+                  industry experience behind us, we pride ourselves on
+                  reliability, efficiency, and a service you can trust every
+                  load.
                 </p>
 
-                <div className="mt-6 grid gap-4 border-t border-black/8 pt-5 sm:mt-7 sm:grid-cols-3 sm:gap-5 sm:pt-6">
+                <div className="mt-6 grid gap-5 border-t border-black/8 pt-5 sm:mt-7 sm:grid-cols-2 sm:gap-6 sm:pt-6 lg:grid-cols-2">
                   {services.map((service) => (
                     <div key={service.number} className="grid gap-2">
                       <div className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-black/38">
                         {service.number}
                       </div>
-                      <div className="text-[1.08rem] font-semibold tracking-[-0.02em] text-black sm:text-[1.14rem]">
+                      <div className="text-[1.14rem] font-semibold tracking-[-0.02em] text-black sm:text-[1.22rem] md:text-[1.28rem]">
                         {service.title}
                       </div>
-                      <p className="text-[0.92rem] leading-6 text-black/58 sm:text-[0.97rem]">
+                      <p className="text-[0.96rem] leading-7 text-black/58 sm:text-[1rem]">
                         {service.description}
                       </p>
                     </div>
@@ -381,7 +379,10 @@ export default function LogisticsWebsiteMockup() {
         </div>
       </section>
 
-      <section id="sectors" className="bg-[#0d0d0d] text-white">
+      <section
+        id="sectors"
+        className="scroll-mt-28 bg-[#0d0d0d] text-white sm:scroll-mt-32"
+      >
         <div className="mx-auto max-w-[1440px] px-4 py-14 sm:px-6 sm:py-16 md:px-10 md:py-20 xl:px-16 xl:py-24">
           <div className="grid gap-8 rounded-[1.8rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045)_0%,rgba(255,255,255,0.015)_100%)] px-5 py-7 sm:rounded-[2.2rem] sm:px-7 sm:py-9 md:px-10 md:py-12 xl:gap-10 xl:px-14">
             <div>
@@ -509,7 +510,7 @@ export default function LogisticsWebsiteMockup() {
                   disabled={isSubmittingQuote}
                   className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-4 text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
                 >
-                  {isSubmittingQuote ? "Submitting..." : "Submit Quote Request"}
+                  {isSubmittingQuote ? "Submitting..." : "Submit"}
                   <FontAwesomeIcon
                     icon={faArrowRightIcon}
                     className="text-[0.82rem]"
@@ -523,7 +524,7 @@ export default function LogisticsWebsiteMockup() {
 
       <section
         id="contact"
-        className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
+        className="mx-auto max-w-[1440px] scroll-mt-28 px-4 py-16 sm:px-6 sm:scroll-mt-32 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
       >
         <div className="grid gap-8 border-t border-black/10 pt-8 sm:pt-10 md:gap-10 xl:grid-cols-[0.82fr_1.18fr] xl:items-start">
           <div className="text-left">

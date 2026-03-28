@@ -87,19 +87,33 @@ export default function LogisticsWebsiteMockup() {
     },
     {
       number: "03",
-      title: "Warehousing & Distribution",
+      title: "Transport Consulting",
       description:
-        "Flexible warehousing and distribution support to help businesses manage stock movement, storage, and onward delivery more efficiently.",
+        "Professional consulting support focused on compliance, transport management services, and efficient route planning for reliable, scalable logistics operations.",
     },
   ];
 
   const sectors = [
-    "Manufacturing",
-    "Retail",
-    "Distribution",
-    "E-commerce",
-    "Supply Chain Partners",
-    "Time-Critical Operations",
+    {
+      title: "General Haulage",
+      description: "Scheduled and ad-hoc transport support for commercial loads.",
+    },
+    {
+      title: "Containers",
+      description: "Container movements handled with dependable planning and coordination.",
+    },
+    {
+      title: "Refrigerated",
+      description: "Temperature-controlled transport for time-sensitive consignments.",
+    },
+    {
+      title: "Waste & Recycling",
+      description: "Reliable transport support for regulated waste and recycling operations.",
+    },
+    {
+      title: "Pallet Network",
+      description: "Efficient pallet distribution support for consistent day-to-day delivery work.",
+    },
   ];
 
   const principles = [
@@ -394,14 +408,7 @@ export default function LogisticsWebsiteMockup() {
                 Provida Transport
               </div>
               <div className="mt-10 flex items-center justify-center">
-                <DotLottieReact
-                  src="/Delivery Truck _ Ignite Animation.lottie"
-                  autoplay
-                  speed={1}
-                  layout={{ fit: "contain", align: [0.5, 0.56] }}
-                  renderConfig={{ autoResize: true }}
-                  className="h-[150px] w-[220px] sm:h-[180px] sm:w-[260px] md:h-[220px] md:w-[340px]"
-                />
+                <div className="h-[1px] w-24 bg-black/12 sm:w-28" />
               </div>
               <div className="mt-7 max-w-[300px] text-[0.74rem] uppercase tracking-[0.16em] text-black/34 sm:mt-8 sm:max-w-[340px] sm:text-[0.86rem] sm:tracking-[0.18em]">
                 Dedicated transport and time-critical delivery support
@@ -412,12 +419,12 @@ export default function LogisticsWebsiteMockup() {
       </AnimatePresence>
 
       <header className="sticky top-0 z-[100] border-b border-black/6 bg-white/92 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1520px] items-center justify-between px-4 py-3 sm:px-6 md:px-10 md:py-5 xl:px-16">
+        <div className="mx-auto flex max-w-[1520px] items-center justify-between px-6 py-3 sm:px-8 md:px-10 md:py-5 xl:px-16">
           <a href="#hero" className="flex items-center">
             <img
               src="/provida-logo.jpeg"
               alt="Provida Transport logo"
-              className="h-8 w-auto object-contain sm:h-9 md:h-11"
+              className="h-11 w-auto object-contain sm:h-12 md:h-14"
             />
           </a>
 
@@ -564,7 +571,9 @@ export default function LogisticsWebsiteMockup() {
               </div>
               <h1 className="font-display max-w-[860px] text-[3rem] leading-[0.92] tracking-[-0.065em] text-black sm:text-[3.8rem] md:text-[5.8rem] xl:text-[7.6rem]">
                 <span className="block">Transport,</span>
-                <span className="block text-black/64">done properly</span>
+                <span className="block pl-[0.08em] text-black/64 sm:pl-[0.1em]">
+                  done right
+                </span>
               </h1>
             </div>
 
@@ -643,11 +652,11 @@ export default function LogisticsWebsiteMockup() {
               </div>
               <div>
                 <div className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-black/40 sm:text-[0.64rem] sm:tracking-[0.24em]">
-                  Distribution support
+                  Transport consulting
                 </div>
                 <div className="mt-2 text-[0.92rem] leading-7 text-black/64 sm:text-[0.96rem]">
-                  Warehousing and onward delivery support to keep operations
-                  moving cleanly and efficiently.
+                  Compliance, transport management, and route planning support
+                  for reliable, scalable logistics operations.
                 </div>
               </div>
             </div>
@@ -659,15 +668,15 @@ export default function LogisticsWebsiteMockup() {
         id="services"
         className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
       >
-        <div className="grid gap-10 sm:gap-12 xl:grid-cols-[0.68fr_1.32fr] xl:gap-18">
-          <div>
+        <div className="grid justify-items-center gap-10 sm:gap-12 xl:grid-cols-[0.68fr_1.32fr] xl:justify-items-stretch xl:gap-18">
+          <div className="text-center xl:text-left">
             <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
               Services
             </div>
             <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
               Core transport services presented with clarity.
             </h2>
-            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
+            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
               Whether a client needs urgent delivery support or a dependable
               logistics partner for ongoing work, the service offering should be
               quick to understand and easy to trust.
@@ -703,22 +712,22 @@ export default function LogisticsWebsiteMockup() {
                 Credibility
               </div>
               <h2 className="font-display mt-4 max-w-[520px] text-[1.72rem] leading-[1.04] tracking-[-0.05em] text-white sm:text-[2rem] md:text-[2.7rem]">
-                Built to reassure serious clients from the first visit.
+                Built for businesses that need dependable transport support.
               </h2>
             </div>
 
             <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-end md:gap-7">
               <p className="max-w-[720px] text-[0.94rem] leading-7 text-white/70 sm:text-[1.02rem] sm:leading-8">
-                In logistics, a website often acts as a quick credibility check.
-                It needs to communicate capability, reliability, and a
-                professional standard without unnecessary noise.
+                Provida Transport supports commercial clients who need a
+                reliable, professional partner for scheduled work, urgent
+                movements, and day-to-day logistics requirements.
               </p>
               <div className="inline-flex items-center gap-3 rounded-full border border-white/12 px-4 py-3 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-white/76 sm:px-5 sm:text-[0.72rem] sm:tracking-[0.16em]">
                 <FontAwesomeIcon
                   icon={faShieldHalvedIcon}
                   className="text-[0.8rem]"
                 />
-                Trusted first impression
+                Reliable & Professional
               </div>
             </div>
           </div>
@@ -726,34 +735,39 @@ export default function LogisticsWebsiteMockup() {
       </section>
 
       <section id="sectors" className="bg-white text-black">
-        <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.8fr_1.2fr] xl:gap-18 xl:px-16 xl:py-28">
-          <div>
+        <div className="mx-auto grid max-w-[1440px] justify-items-center gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:justify-items-stretch xl:gap-18 xl:px-16 xl:py-28">
+          <div className="text-center xl:text-left">
             <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
-              Who we work with
+              Services
             </div>
-            <h2 className="font-display mt-4 max-w-[400px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
-              Transport support for commercially demanding sectors.
+            <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
+              Core transport services.
             </h2>
-            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
-              Provida Transport is positioned for businesses that need a
-              transport partner that communicates clearly, responds quickly, and
-              delivers reliably.
+            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
+              A clear overview of the transport categories Provida supports for
+              commercial clients across scheduled, urgent, and specialist work.
             </p>
           </div>
 
-          <div className="grid gap-2.5">
-            {sectors.map((sector) => (
+          <div className="grid gap-3">
+            {sectors.map((sector, index) => (
               <div
-                key={sector}
-                className="flex items-center justify-between rounded-[1.15rem] border border-black/8 px-4 py-4 transition hover:border-black/16 sm:rounded-[1.35rem] sm:px-6 sm:py-5 md:px-7"
+                key={sector.title}
+                className="rounded-[1.2rem] border border-black/8 bg-[linear-gradient(180deg,rgba(0,0,0,0.02)_0%,rgba(0,0,0,0.008)_100%)] px-4 py-4 sm:rounded-[1.45rem] sm:px-6 sm:py-5 md:px-7 md:py-6"
               >
-                <div className="pr-4 text-[0.95rem] font-semibold tracking-[-0.015em] text-black sm:text-[1rem]">
-                  {sector}
+                <div className="grid gap-2 md:grid-cols-[72px_1fr] md:gap-5">
+                  <div className="text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-black/32 sm:text-[0.6rem]">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <div>
+                    <div className="text-[0.98rem] font-semibold tracking-[-0.015em] text-black sm:text-[1.05rem]">
+                      {sector.title}
+                    </div>
+                    <p className="mt-2 max-w-[560px] text-[0.88rem] leading-6 text-black/56 sm:text-[0.92rem]">
+                      {sector.description}
+                    </p>
+                  </div>
                 </div>
-                <FontAwesomeIcon
-                  icon={faArrowRightIcon}
-                  className="text-[0.78rem] text-black/28"
-                />
               </div>
             ))}
           </div>
@@ -764,18 +778,18 @@ export default function LogisticsWebsiteMockup() {
         id="approach"
         className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
       >
-        <div className="grid gap-10 xl:grid-cols-[0.74fr_1.26fr] xl:gap-18">
-          <div>
+        <div className="grid justify-items-center gap-10 xl:grid-cols-[0.74fr_1.26fr] xl:justify-items-stretch xl:gap-18">
+          <div className="text-center xl:text-left">
             <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
               Approach
             </div>
             <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
               Why businesses choose Provida Transport.
             </h2>
-            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
-              The site should help prospective clients understand not just what
-              Provida does, but why the business is a dependable partner to work
-              with.
+            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
+              Provida Transport is built around clear communication, responsive
+              service, and the dependable support commercial clients need from a
+              trusted transport partner.
             </p>
           </div>
 
@@ -798,18 +812,18 @@ export default function LogisticsWebsiteMockup() {
       </section>
 
       <section id="quote" className="border-y border-black/8 bg-[#fbfbfb]">
-        <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:gap-18 xl:px-16 xl:py-28">
-          <div>
+        <div className="mx-auto grid max-w-[1440px] justify-items-center gap-10 px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:grid-cols-[0.78fr_1.22fr] xl:justify-items-stretch xl:gap-18 xl:px-16 xl:py-28">
+          <div className="text-center xl:text-left">
             <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
               Request a Quote
             </div>
             <h2 className="font-display mt-4 max-w-[420px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.6rem]">
               Request a quote.
             </h2>
-            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
-              A simple enquiry form gives prospective clients a direct way to
-              discuss delivery requirements, recurring transport needs, or
-              distribution support.
+            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
+              Tell us about your delivery requirements, recurring transport
+              needs, or operational priorities, and we will respond with a
+              tailored quote.
             </p>
           </div>
 
@@ -875,7 +889,7 @@ export default function LogisticsWebsiteMockup() {
               ) : null}
               <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                 <p className="text-[0.7rem] uppercase tracking-[0.16em] text-black/34 sm:text-[0.78rem] sm:tracking-[0.18em]">
-                  Commercial enquiries only
+                  We respond to commercial transport enquiries
                 </p>
                 <button
                   type="submit"
@@ -898,15 +912,15 @@ export default function LogisticsWebsiteMockup() {
         id="contact"
         className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 sm:py-18 md:px-10 md:py-24 xl:px-16 xl:py-28"
       >
-        <div className="grid gap-8 border-t border-black/10 pt-8 sm:pt-10 md:gap-10 xl:grid-cols-[0.78fr_1.22fr]">
-          <div>
+        <div className="grid justify-items-center gap-8 border-t border-black/10 pt-8 sm:pt-10 md:gap-10 xl:grid-cols-[0.78fr_1.22fr] xl:justify-items-stretch">
+          <div className="text-center xl:text-left">
             <div className="text-[0.58rem] uppercase tracking-[0.28em] text-black/38">
               Contact
             </div>
             <h2 className="font-display mt-4 max-w-[450px] text-[1.7rem] leading-[1.04] tracking-[-0.05em] text-black sm:text-[1.95rem] md:text-[2.5rem]">
               Get in touch with Provida Transport.
             </h2>
-            <p className="mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem]">
+            <p className="mx-auto mt-4 max-w-md text-[0.94rem] leading-7 text-black/62 sm:mt-5 sm:text-[0.98rem] xl:mx-0">
               Whether you need a one-off urgent movement or a longer-term
               logistics partner, Provida Transport can be contacted quickly to
               discuss requirements and provide a tailored quote.
@@ -920,7 +934,7 @@ export default function LogisticsWebsiteMockup() {
               </div>
               <div className="flex items-center gap-3 text-[0.95rem] font-semibold tracking-[-0.01em] text-black sm:text-[0.98rem]">
                 <FontAwesomeIcon icon={faPhoneIcon} className="text-[0.82rem]" />
-                +44 (0)XXX XXX XXXX
+                +(44)7925617405
               </div>
             </div>
             <div className="grid gap-2 rounded-[1.35rem] border border-black/8 bg-white px-5 py-5 sm:gap-5 sm:rounded-[1.6rem] sm:px-6 sm:py-6 md:grid-cols-[160px_1fr] md:px-8">
@@ -928,7 +942,7 @@ export default function LogisticsWebsiteMockup() {
                 Email
               </div>
               <div className="break-all text-[0.95rem] font-semibold tracking-[-0.01em] text-black sm:break-normal sm:text-[0.98rem]">
-                hello@providatransport.co.uk
+                enquiries@providatransport.com
               </div>
             </div>
             <div className="grid gap-2 rounded-[1.35rem] border border-black/8 bg-white px-5 py-5 sm:gap-5 sm:rounded-[1.6rem] sm:px-6 sm:py-6 md:grid-cols-[160px_1fr] md:px-8">

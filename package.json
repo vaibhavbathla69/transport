@@ -9,14 +9,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@lottiefiles/dotlottie-react": "latest",
     "@fortawesome/fontawesome-svg-core": "latest",
     "@fortawesome/free-solid-svg-icons": "latest",
     "@fortawesome/react-fontawesome": "latest",
+    "@lottiefiles/dotlottie-react": "latest",
     "framer-motion": "latest",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "resend": "^6.9.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "latest",

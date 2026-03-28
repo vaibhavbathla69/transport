@@ -555,7 +555,7 @@ export default function LogisticsWebsiteMockup() {
       <section id="hero" className="relative overflow-hidden bg-white">
         <div className="mx-auto max-w-[1520px] px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-10 md:px-10 md:pb-24 md:pt-16 xl:px-16 xl:pb-28 xl:pt-20">
           <motion.div
-            className="grid gap-9 sm:gap-10 xl:grid-cols-[1.18fr_0.82fr] xl:items-end xl:gap-14"
+            className="grid gap-9 sm:gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] lg:items-start lg:gap-10 xl:grid-cols-[1.18fr_0.82fr] xl:items-end xl:gap-14"
             style={motionEnabled ? { y: heroY, opacity: heroOpacity } : undefined}
           >
             <div className="max-w-[900px]">
@@ -569,7 +569,7 @@ export default function LogisticsWebsiteMockup() {
             </div>
 
             <motion.div
-              className="max-w-none sm:max-w-[420px] xl:justify-self-end"
+              className="max-w-none sm:max-w-[420px] lg:justify-self-end"
               style={motionEnabled ? { y: heroDetailY } : undefined}
             >
               <div className="rounded-[1.6rem] border border-black/8 bg-black/[0.02] p-5 sm:rounded-[2rem] sm:p-7 md:p-8">

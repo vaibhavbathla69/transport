@@ -227,17 +227,17 @@ export default function LogisticsWebsiteMockup() {
             <img
               src="/provida-logo.jpeg"
               alt="Provida Transport logo"
-              className="h-20 w-auto object-contain sm:h-22 md:h-24"
+              className="h-24 w-auto object-contain sm:h-26 md:h-28"
             />
           </a>
 
           <div className="hidden lg:block">
-            <nav className="flex items-center gap-1.5 text-[0.69rem] font-semibold uppercase tracking-[0.14em] text-black/48">
+            <nav className="flex items-center gap-2 text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-black/48">
               {navItems.map((item) => (
                 <a
                   key={item.key}
                   href={item.href}
-                  className={`rounded-full px-4 py-2 transition ${
+                  className={`rounded-full px-5 py-2.5 transition ${
                     activeNavKey === item.key
                       ? "bg-black/[0.03] text-black"
                       : "hover:text-black"
@@ -252,7 +252,7 @@ export default function LogisticsWebsiteMockup() {
           <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="#quote"
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-black px-4 py-2 text-[0.66rem] font-bold uppercase tracking-[0.12em] text-white transition hover:opacity-95 sm:px-4.5 sm:text-[0.7rem] lg:hidden"
+              className="group relative hidden items-center justify-center overflow-hidden rounded-full bg-black px-4 py-2 text-[0.66rem] font-bold uppercase tracking-[0.12em] text-white transition hover:opacity-95 sm:px-4.5 sm:text-[0.7rem] lg:hidden"
             >
               <span className="pointer-events-none absolute inset-y-[2px] left-[-18%] w-[34%] skew-x-[-20deg] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.08)_45%,rgba(255,255,255,0.32)_50%,rgba(255,255,255,0.08)_55%,transparent_100%)] transition-transform duration-700 ease-out group-hover:translate-x-[320%]" />
               <span className="relative z-10 font-bold tracking-[0.16em] text-white">
@@ -300,7 +300,7 @@ export default function LogisticsWebsiteMockup() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="flex min-h-screen flex-col px-4 pb-8 pt-28 sm:px-6 sm:pt-30">
+            <div className="flex min-h-screen flex-col px-4 pb-8 pt-32 sm:px-6 sm:pt-34">
               <nav className="grid gap-2">
                 {navItems.map((item) => (
                   <a
@@ -334,7 +334,7 @@ export default function LogisticsWebsiteMockup() {
             style={motionEnabled ? { y: heroY, opacity: heroOpacity } : undefined}
           >
             <div className="max-w-none lg:pt-2 xl:pt-3">
-              <h1 className="font-display max-w-none text-[2.55rem] leading-[0.96] tracking-[-0.055em] text-black sm:text-[3.2rem] md:text-[4.1rem] lg:text-[4.7rem] xl:text-[5.4rem]">
+              <h1 className="font-display max-w-none text-[2.35rem] leading-[0.97] tracking-[-0.05em] text-black sm:text-[3rem] md:text-[3.8rem] lg:text-[4.35rem] xl:text-[4.9rem]">
                 <span className="inline">Transport, </span>
                 <span className="inline text-black/64">
                   done right
@@ -348,13 +348,13 @@ export default function LogisticsWebsiteMockup() {
             >
               <div className="rounded-[1.6rem] border border-black/8 bg-black/[0.02] p-5 sm:rounded-[2rem] sm:p-7 md:p-8">
                 <div className="border-b border-black/8 pb-5 sm:pb-6">
-                  <p className="text-[1.02rem] leading-7 tracking-[-0.02em] text-black sm:text-[1.1rem] sm:leading-8 md:text-[1.2rem]">
+                  <p className="text-[1.03rem] leading-7 tracking-[-0.02em] text-black sm:text-[1.1rem] sm:leading-8 md:text-[1.16rem]">
                     At Provida Transport, we deliver dependable, competitively
                     priced haulage services across the UK.
                   </p>
                 </div>
 
-                <p className="pt-5 text-[0.96rem] leading-7 text-black/68 sm:pt-6 sm:text-[1.02rem] sm:leading-8 md:text-[1.06rem]">
+                <p className="pt-5 text-[1.03rem] leading-7 text-black/68 sm:pt-6 sm:text-[1.1rem] sm:leading-8 md:text-[1.16rem]">
                   With over a decade of industry experience behind us, we pride
                   ourselves on reliability, efficiency, and a service you can
                   trust every load.
@@ -366,10 +366,10 @@ export default function LogisticsWebsiteMockup() {
                       <div className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-black/38">
                         {service.number}
                       </div>
-                      <div className="text-[0.98rem] font-semibold tracking-[-0.02em] text-black sm:text-[1.02rem]">
+                      <div className="text-[1.08rem] font-semibold tracking-[-0.02em] text-black sm:text-[1.14rem]">
                         {service.title}
                       </div>
-                      <p className="text-[0.88rem] leading-6 text-black/58 sm:text-[0.92rem]">
+                      <p className="text-[0.92rem] leading-6 text-black/58 sm:text-[0.97rem]">
                         {service.description}
                       </p>
                     </div>
@@ -391,10 +391,11 @@ export default function LogisticsWebsiteMockup() {
             </div>
 
             <div className="grid gap-5">
-              <p className="max-w-[720px] text-[0.94rem] leading-7 text-white/70 sm:text-[1.02rem] sm:leading-8">
+              <p className="max-w-[920px] text-[0.94rem] leading-7 text-white/70 sm:text-[1.02rem] sm:leading-8">
                 Our fleet of articulated vehicles and trailers, from
                 curtainsiders to skeletons, is built to handle a wide range of
-                transport demands with precision and reliability.
+                transport demands with precision and reliability. We offer the
+                following haulage services:
               </p>
             </div>
 
@@ -532,7 +533,15 @@ export default function LogisticsWebsiteMockup() {
           </div>
 
           <div className="grid gap-3 xl:max-w-[620px] xl:justify-self-start">
-            <div className="grid gap-2 rounded-[1rem] border border-black/8 bg-white px-4 py-3.5 sm:gap-2.5 sm:rounded-[1.2rem] sm:px-5 sm:py-4 md:px-6">
+            <div className="grid gap-2 px-1 py-1 sm:gap-2.5">
+              <div className="text-[0.56rem] uppercase tracking-[0.22em] text-black/35 sm:text-[0.58rem] sm:tracking-[0.24em]">
+                Address
+              </div>
+              <div className="text-[0.95rem] font-semibold tracking-[-0.01em] text-black sm:text-[0.98rem]">
+                403 Copperbox, 66 High Street, Harborne, Birmingham, B17 9BF
+              </div>
+            </div>
+            <div className="grid gap-2 px-1 py-1 sm:gap-2.5">
               <div className="text-[0.56rem] uppercase tracking-[0.22em] text-black/35 sm:text-[0.58rem] sm:tracking-[0.24em]">
                 Email
               </div>

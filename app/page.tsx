@@ -300,7 +300,7 @@ export default function LogisticsWebsiteMockup() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="flex min-h-screen flex-col px-4 pb-8 pt-22 sm:px-6">
+            <div className="flex min-h-screen flex-col px-4 pb-8 pt-28 sm:px-6 sm:pt-30">
               <nav className="grid gap-2">
                 {navItems.map((item) => (
                   <a

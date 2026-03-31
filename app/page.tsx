@@ -20,6 +20,7 @@ type NavKey = "services" | "sectors" | "contact";
 type QuoteFormData = {
   companyName: string;
   contactName: string;
+  mobileNumber: string;
   email: string;
   requirements: string;
   website: string;
@@ -102,6 +103,7 @@ export default function LogisticsWebsiteMockup() {
   const [quoteForm, setQuoteForm] = useState<QuoteFormData>({
     companyName: "",
     contactName: "",
+    mobileNumber: "",
     email: "",
     requirements: "",
     website: "",
@@ -155,6 +157,22 @@ export default function LogisticsWebsiteMockup() {
     }));
   };
 
+  const handleMobileFocus = () => {
+    setQuoteForm((current) =>
+      current.mobileNumber.trim() === ""
+        ? { ...current, mobileNumber: "+44" }
+        : current
+    );
+  };
+
+  const handleMobileBlur = () => {
+    setQuoteForm((current) =>
+      current.mobileNumber.trim() === "+44"
+        ? { ...current, mobileNumber: "" }
+        : current
+    );
+  };
+
   const handleQuoteSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmittingQuote(true);
@@ -169,6 +187,7 @@ export default function LogisticsWebsiteMockup() {
         body: JSON.stringify({
           companyName: quoteForm.companyName,
           contactName: quoteForm.contactName,
+          mobileNumber: quoteForm.mobileNumber,
           email: quoteForm.email,
           requirements: quoteForm.requirements,
           website: quoteForm.website,
@@ -191,6 +210,7 @@ export default function LogisticsWebsiteMockup() {
       setQuoteForm({
         companyName: "",
         contactName: "",
+        mobileNumber: "",
         email: "",
         requirements: "",
         website: "",
@@ -450,7 +470,6 @@ export default function LogisticsWebsiteMockup() {
                 className="rounded-[1rem] border border-black/10 bg-[#fcfcfc] px-4 py-4 text-[0.94rem] text-black outline-none transition placeholder:text-black/30 focus:border-black/26 sm:text-[0.96rem]"
                 placeholder="Company name"
                 autoComplete="organization"
-                required
               />
               <div className="grid gap-4 md:grid-cols-2">
                 <input
@@ -458,10 +477,24 @@ export default function LogisticsWebsiteMockup() {
                   value={quoteForm.contactName}
                   onChange={handleQuoteChange}
                   className="rounded-[1rem] border border-black/10 bg-[#fcfcfc] px-4 py-4 text-[0.94rem] text-black outline-none transition placeholder:text-black/30 focus:border-black/26 sm:text-[0.96rem]"
-                  placeholder="Contact name"
+                  placeholder="Contact name *"
                   autoComplete="name"
                   required
                 />
+                <input
+                  name="mobileNumber"
+                  type="tel"
+                  value={quoteForm.mobileNumber}
+                  onChange={handleQuoteChange}
+                  onFocus={handleMobileFocus}
+                  onBlur={handleMobileBlur}
+                  className="rounded-[1rem] border border-black/10 bg-[#fcfcfc] px-4 py-4 text-[0.94rem] text-black outline-none transition placeholder:text-black/30 focus:border-black/26 sm:text-[0.96rem]"
+                  placeholder="Mobile number *"
+                  autoComplete="tel"
+                  required
+                />
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
                 <input
                   name="email"
                   type="email"
@@ -470,7 +503,6 @@ export default function LogisticsWebsiteMockup() {
                   className="rounded-[1rem] border border-black/10 bg-[#fcfcfc] px-4 py-4 text-[0.94rem] text-black outline-none transition placeholder:text-black/30 focus:border-black/26 sm:text-[0.96rem]"
                   placeholder="Email address"
                   autoComplete="email"
-                  required
                 />
               </div>
               <input
@@ -487,7 +519,7 @@ export default function LogisticsWebsiteMockup() {
                 value={quoteForm.requirements}
                 onChange={handleQuoteChange}
                 className="min-h-[160px] rounded-[1rem] border border-black/10 bg-[#fcfcfc] px-4 py-4 text-[0.94rem] text-black outline-none transition placeholder:text-black/30 focus:border-black/26 sm:min-h-[170px] sm:text-[0.96rem]"
-                placeholder="Tell us about your transport, delivery, or distribution requirements"
+                placeholder="Tell us about your transport, delivery, or distribution requirements *"
                 required
               />
               {quoteStatus.type !== "idle" ? (
@@ -555,7 +587,7 @@ export default function LogisticsWebsiteMockup() {
       </section>
 
       <footer className="border-t border-black/8 bg-white px-4 py-6 text-center text-[0.68rem] uppercase tracking-[0.14em] text-black/36 sm:px-6 sm:py-7 sm:text-[0.72rem] sm:tracking-[0.16em] md:px-10 xl:px-16">
-        Â© 2026 Provida Transport. All rights reserved.
+        © 2026 Provida Transport. All rights reserved.
       </footer>
     </div>
   );

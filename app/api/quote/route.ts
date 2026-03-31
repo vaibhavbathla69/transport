@@ -4,6 +4,7 @@ import { Resend } from "resend";
 type QuoteRequestBody = {
   companyName?: string;
   contactName?: string;
+  mobileNumber?: string;
   email?: string;
   requirements?: string;
   website?: string;
@@ -24,6 +25,7 @@ export async function POST(request: Request) {
   const body = (await request.json()) as QuoteRequestBody;
   const companyName = body.companyName?.trim() || "";
   const contactName = body.contactName?.trim() || "";
+  const mobileNumber = body.mobileNumber?.trim() || "";
   const email = body.email?.trim() || "";
   const requirements = body.requirements?.trim() || "";
   const website = body.website?.trim() || "";
@@ -32,7 +34,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  if (!companyName || !contactName || !email || !requirements) {
+  if (!contactName || !mobileNumber || !requirements) {
     return NextResponse.json(
       { message: "Please complete all required fields." },
       { status: 400 }
@@ -45,14 +47,15 @@ export async function POST(request: Request) {
     await resend.emails.send({
       from: resendFrom,
       to: resendTo,
-      replyTo: email,
-      subject: `Provida quote request from ${companyName}`,
+      ...(email ? { replyTo: email } : {}),
+      subject: `Provida quote request${companyName ? ` from ${companyName}` : ""}`,
       html: `
         <div style="font-family:Arial,sans-serif;line-height:1.6;color:#111111">
           <h2 style="margin:0 0 16px">New Quote Request</h2>
-          <p style="margin:0 0 8px"><strong>Company:</strong> ${escapeHtml(companyName)}</p>
+          <p style="margin:0 0 8px"><strong>Company:</strong> ${escapeHtml(companyName || "Not provided")}</p>
           <p style="margin:0 0 8px"><strong>Contact:</strong> ${escapeHtml(contactName)}</p>
-          <p style="margin:0 0 8px"><strong>Email:</strong> ${escapeHtml(email)}</p>
+          <p style="margin:0 0 8px"><strong>Mobile:</strong> ${escapeHtml(mobileNumber)}</p>
+          <p style="margin:0 0 8px"><strong>Email:</strong> ${escapeHtml(email || "Not provided")}</p>
           <p style="margin:16px 0 8px"><strong>Requirements:</strong></p>
           <p style="margin:0;white-space:pre-wrap">${escapeHtml(requirements)}</p>
         </div>

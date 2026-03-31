@@ -333,15 +333,6 @@ export default function LogisticsWebsiteMockup() {
                   </a>
                 ))}
               </nav>
-              <div className="mt-6 grid gap-3">
-                <a
-                  href="#contact"
-                  onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center justify-center rounded-full border border-black/10 px-6 py-4 text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-black"
-                >
-                  Contact
-                </a>
-              </div>
             </div>
           </motion.div>
         ) : null}
@@ -372,8 +363,7 @@ export default function LogisticsWebsiteMockup() {
               <div className="rounded-[1.6rem] border border-black/8 bg-black/[0.02] p-5 sm:rounded-[2rem] sm:p-7 md:p-8">
                 <p className="text-[1.03rem] leading-7 tracking-[-0.02em] text-black sm:text-[1.1rem] sm:leading-8 md:text-[1.16rem]">
                   At Provida Transport, we deliver dependable, competitively
-                  priced haulage services across the UK. With over a decade of
-                  industry experience behind us, we pride ourselves on
+                  priced haulage services across the UK. We pride ourselves on
                   reliability, efficiency, and a service you can trust every
                   load.
                 </p>
